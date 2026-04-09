@@ -94,8 +94,21 @@ function App() {
             <p style={{ fontSize: '1.2rem', color: '#7a84b8', marginTop: '2rem' }}>
               实战 Lab Session
             </p>
+            <p style={{ fontSize: '1.4rem', color: '#94a3b8', marginTop: '3rem' }}>
+              Guyuan Chen
+            </p>
           </div>
         </FlexBox>
+        {/* Microsoft Logo Badge */}
+        <div style={{ position: 'absolute', bottom: '2rem', right: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <svg width="24" height="24" viewBox="0 0 23 23">
+            <rect x="0" y="0" width="11" height="11" fill="#f25022"/>
+            <rect x="12" y="0" width="11" height="11" fill="#7fba00"/>
+            <rect x="0" y="12" width="11" height="11" fill="#00a4ef"/>
+            <rect x="12" y="12" width="11" height="11" fill="#ffb900"/>
+          </svg>
+          <span style={{ color: '#94a3b8', fontSize: '1rem' }}>Microsoft</span>
+        </div>
       </Slide>
 
       {/* Slide 2: Agenda */}
