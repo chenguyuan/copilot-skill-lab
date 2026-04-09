@@ -1,4 +1,4 @@
-// 完整版 PPT - 所有 16 页
+// 完整版 PPT - 所有 17 页
 import {
   Deck,
   Slide,
@@ -6,6 +6,7 @@ import {
   Text,
   FlexBox,
   Box,
+  Appear,
 } from 'spectacle';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -386,7 +387,42 @@ New-Item -ItemType Junction \`
         </FlexBox>
       </Slide>
 
-      {/* Slide 13: Create Your Own */}
+      {/* Slide 13: Discussion - 动画：先问题，再答案 */}
+      <Slide backgroundColor="#0e0a2a">
+        <SlideContent width="85%">
+          <Heading fontSize="60px" color="primary" margin="0 0 1.5rem 0">🤔 讨论</Heading>
+          <div style={{ ...cardStyle, textAlign: 'center', marginBottom: '2rem', borderColor: '#f59e0b', background: 'rgba(245, 158, 11, 0.1)' }}>
+            <p style={{ color: '#f59e0b', margin: 0, fontSize: '1.8rem', fontWeight: 500 }}>
+              直接把日志交给 Copilot 就能分析了，<br/>为什么还要用 Skill？
+            </p>
+          </div>
+          <Appear>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
+              {[
+                { icon: '🎯', title: '一致性', desc: '每次相同方法论、相同格式' },
+                { icon: '🧠', title: '知识封装', desc: '阈值、模式库、检查清单' },
+                { icon: '👥', title: '团队共享', desc: 'Git 版本控制，新人即用' },
+                { icon: '✅', title: '质量保证', desc: '不遗漏关键步骤' },
+              ].map((item, i) => (
+                <div key={i} style={{ ...cardStyle, display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                  <span style={{ fontSize: '2rem' }}>{item.icon}</span>
+                  <div>
+                    <h4 style={{ color: '#818cf8', margin: '0 0 0.3rem 0', fontSize: '1.4rem' }}>{item.title}</h4>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.1rem' }}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Appear>
+          <Appear>
+            <div style={{ marginTop: '1.5rem', textAlign: 'center', padding: '1rem', background: 'rgba(129, 140, 248, 0.1)', borderRadius: '12px' }}>
+              <span style={{ color: '#e2e8f0', fontSize: '1.3rem' }}>💡 类比：直接问 = 聪明的新员工 | 用 Skill = 给他 SOP + 你的经验</span>
+            </div>
+          </Appear>
+        </SlideContent>
+      </Slide>
+
+      {/* Slide 14: Create Your Own */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="80%">
           <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">创建自己的 Skill</Heading>
@@ -419,7 +455,7 @@ New-Item -ItemType Junction \`
         </SlideContent>
       </Slide>
 
-      {/* Slide 14: File Structure */}
+      {/* Slide 15: File Structure */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="85%">
           <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">文件结构</Heading>
@@ -450,7 +486,7 @@ New-Item -ItemType Junction \`
         </SlideContent>
       </Slide>
 
-      {/* Slide 15: Exercise */}
+      {/* Slide 16: Exercise */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="80%">
           <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">动手练习</Heading>
@@ -475,7 +511,7 @@ New-Item -ItemType Junction \`
         </SlideContent>
       </Slide>
 
-      {/* Slide 16: Takeaways */}
+      {/* Slide 17: Takeaways */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="80%">
           <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">Takeaways</Heading>
