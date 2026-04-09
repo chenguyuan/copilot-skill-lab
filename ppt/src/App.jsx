@@ -127,6 +127,10 @@ function App() {
               </div>
             ))}
           </div>
+          <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+            <span style={{ color: '#64748b', fontSize: '1.1rem' }}>📚 基础文档：</span>
+            <a href="https://internal.evergreen.microsoft.com/en-us/topic/2551d022-d53d-4abc-c733-4aa959b7fb87" style={{ color: '#818cf8', fontSize: '1.1rem', marginLeft: '0.5rem' }}>Copilot Skills (Evergreen)</a>
+          </div>
         </SlideContent>
       </Slide>
 
