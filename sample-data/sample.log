@@ -1,0 +1,72 @@
+# Teams CombinedMediaLogs.txt Sample (Sanitized)
+# 用途：用于 Copilot Skills lab 演示，展示典型错误模式
+# 脱敏说明：所有 GUID、IP、用户ID、TenantID 均已替换为占位符
+
+# === 启动日志 ===
+2026-03-15 08:30:21.182 [#00000001-S] T#10001 [DEBUG1] [auf] Current time: Local=2026-03-15T16:30:21.182 ; Utc=2026-03-15T08:30:21.182 ; tzBias=28800s
+2026-03-15 08:30:21.184 [#00000002-S] T#10001 [META] [auf] Build config: win-x64_vs2022-crtdynamic/Release/1
+2026-03-15 08:30:21.184 [#00000003-S] T#10001 [DEBUG4] [spl] Windows 10.0.26100 AMD64
+2026-03-15 08:30:21.184 [#00000004-S] T#10001 [DEBUG4] [spl] Form factor: LAPTOP
+
+# === DNS 解析失败 (常见网络问题) ===
+2026-03-15 08:30:22.945 [#00000005-S] T#10002 P.N [DEBUG4] [rtnet] DnsResolve GetAddrInfoW(relay.example.com) AF23 SOCK1 FLAGS2: error 11001: No such host is known.
+2026-03-15 08:31:25.532 [#00000006-S] T#10002 P.N [DEBUG4] [rtnet] DnsResolve GetAddrInfoW(turn.example.com) AF23 SOCK1 FLAGS2: error 11001: No such host is known.
+
+# === 日志大小警告 ===
+2026-03-15 08:30:23.469 [#00000007-S] T#10001 [WARN] [auf] AUF: WARNING! Log line too huge; computed size = 262959 bytes. Max size including bookkeeping: 65535 bytes.
+
+# === Trouter 连接断开 ===
+2026-03-15 09:27:03.151 [#00000008-S] T#10003 S.41 [DEBUG2] [trouter.conn] @0000000000000001: Disconnected because of error 13 (ClosedByServer), subcode 0
+2026-03-15 10:38:30.079 [#00000009-S] T#10003 S.41 [DEBUG2] [trouter.conn] @0000000000000002: Disconnected because of error 13 (ClosedByServer), subcode 0
+
+# === 会话未连接时的操作错误 (典型 timing issue) ===
+2026-03-15 10:59:11.288 [#0000000a-S] T#10004 S.11 [ERROR] [calling.csa] 0000000a: AddParticipantLeg AddParticipantLeg is not allowed because the conversation is not connected.
+2026-03-15 10:59:11.288 [#0000000b-S] T#10004 S.11 [ERROR] [calling.csa] 0000000b: AddParticipants AddParticipants is not allowed because the conversation is not connected.
+2026-03-15 10:59:11.288 [#0000000c-S] T#10004 S.11 [ERROR] [calling.csa] 0000000c: RemoveParticipants RemoveParticipants is not allowed because the conversation is not connected.
+2026-03-15 10:59:11.288 [#0000000d-S] T#10004 S.11 [ERROR] [calling.csa] 0000000d: AddModality AddModality is not allowed because the conversation is not connected.
+2026-03-15 10:59:11.288 [#0000000e-S] T#10004 S.11 [ERROR] [calling.csa] 0000000e: AdmitParticipant AdmitParticipant is not allowed because the conversation is not connected.
+2026-03-15 10:59:11.288 [#0000000f-S] T#10004 S.11 [ERROR] [calling.csa] 0000000f: UpdateMeetingSettings UpdateMeetingSettings is not allowed because the conversation is not connected.
+2026-03-15 10:59:11.288 [#00000010-S] T#10004 S.11 [ERROR] [calling.csa] 00000010: SendProxiedMessage SendProxiedMessage is not allowed because the URL is empty.
+2026-03-15 10:59:11.288 [#00000011-S] T#10004 S.11 [ERROR] [calling.csa] 00000011: DisablePreheat DisablePreheat is not allowed in the current call state.
+
+# === 发布状态错误 ===
+2026-03-15 10:59:13.168 [#00000012-S] T#10005 S.42 [ERROR] [calling.csa] CA:CONVERSATION_OBJECTMODEL:Invalid published state. (COutgoingConversationSetupOperation.cpp:1606 csa::COutgoingConversationSetupOperation::createCreateConversationRequest)
+
+# === 操作调度失败 ===
+2026-03-15 10:59:14.088 [#00000013-S] T#10006 S.42 [ERROR] [calling.csa] CA:CONVERSATION_OBJECTMODEL:---CUpdateEndpointMetaDataOperation(a0000000-0000-0000-0000-000000000001) start failed with error 0x8bb80001, Operations in queue 1 (CConversation.cpp:6257 csa::CConversation::onOperationSchedulingFailed)
+2026-03-15 10:59:17.539 [#00000014-S] T#10006 S.42 [ERROR] [calling.csa] CA:CONVERSATION_OBJECTMODEL:---CUpdateEndpointMetaDataOperation(b0000000-0000-0000-0000-000000000002) start failed with error 0x8bb80001, Operations in queue 1 (CConversation.cpp:6257 csa::CConversation::onOperationSchedulingFailed)
+
+# === 找不到参与者通知 ===
+2026-03-15 10:59:26.636 [#00000015-S] T#10007 S.42 [ERROR] [calling.csa] CA:CONVERSATION_OBJECTMODEL:In ConversationId: c0000000-0000-0000-0000-000000000003, cannot find notification for participantId: 8:user001. Cannot resolve participant. (CAddParticipantNotificationManager.hpp:91 csa::CAddParticipantNotificationManager::onEvent)
+
+# === MediaAgent 遥测错误 ===
+2026-03-15 10:59:12.867 [#00000016-S] T#10008 S.42 [ERROR] [MediaAgent] @0000000000000003: 00000016:
+2026-03-15 10:59:12.868 [#00000017-S] T#10008 S.42 [DEBUG1] [MediaAgent] @0000000000000004: QE_PARSE(TelemetryEvent) log_level = Error
+2026-03-15 10:59:17.415 [#00000018-S] T#10008 S.42 [ERROR] [MediaAgent] @0000000000000003: 00000018:
+2026-03-15 10:59:24.095 [#00000019-S] T#10008 S.42 [ERROR] [MediaAgent] @0000000000000003: 00000019:
+2026-03-15 10:59:45.987 [#0000001a-S] T#10008 S.42 [ERROR] [MediaAgent] @0000000000000003: 0000001a:
+
+# === ONNX 推理警告 ===
+2026-03-15 11:01:14.287 [#0000001b-S] T#10009 S.314 [WARN] [inference] ONNX warning: Initializer Ad_Addcst appears in graph inputs and will not be treated as constant value/weight. This may prevent some of the graph optimizations. (graph.cc:1231 onnxruntime::Graph::Graph)
+
+# === 设备检索失败 (扩展ID错误，常见于某些音频设备) ===
+2026-03-15 08:36:22.600 [#0000001c-S] T#10010 S.31 [WARN] [MediaAgent] failed to retrieve extended id for device 0x0000000000000005: 0x80070032
+2026-03-15 08:36:22.600 [#0000001d-S] T#10010 S.31 [WARN] [MediaAgent] failed to retrieve extended id for device 0x0000000000000006: 0x80070032
+
+# === 地理位置读取失败 ===
+2026-03-15 08:36:21.336 [#0000001e-S] T#10011 S.8 [WARN] [rtnet.GeoLocation] @0000000000000007: failed to read geoposition async
+2026-03-15 08:36:21.336 [#0000001f-S] T#10011 S.8 [DEBUG4] [E911] @0000000000000008: Reading E911 GeoCoordinates failed
+
+# === Library 加载错误 ===
+2026-03-15 08:36:21.526 [#00000020-S] T#10012 P.N [ERROR] [spl] LoadLibrary returned error 87 trying to load library "" (dynamic_library.cpp:26 spl::LoadDynamicLibrary)
+
+# === HTTP 请求成功示例 (对比用) ===
+2026-03-15 08:36:24.187 [#00000021-S] T#10013 P.N [DEBUG1] [registrar.HttpRequest] isRetryRequired(): result = HTTPSTACK_ERROR_OK, status = 202
+2026-03-15 08:36:24.579 [#00000022-S] T#10013 P.N [DEBUG1] [registrar.HttpRequest] isRetryRequired(): result = HTTPSTACK_ERROR_OK, status = 202
+
+# === 典型分析任务 ===
+# 1. 找出所有 [ERROR] 级别的日志
+# 2. 统计 "conversation is not connected" 错误出现次数
+# 3. 分析 DNS 解析失败的主机名
+# 4. 识别 trouter 断开的模式
+# 5. 提取操作失败的 GUID 和错误码

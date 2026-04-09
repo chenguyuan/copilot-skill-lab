@@ -1,0 +1,39 @@
+:root {
+  font-family: 'Inter', 'Segoe UI', 'Noto Sans SC', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+/* 强制 Spectacle CodePane 使用深色背景 */
+pre,
+pre[class*="language-"],
+pre[class*="prism"],
+div[class*="CodePane"] pre,
+[class*="spectacle"] pre {
+  background: #282a36 !important;  /* Dracula 背景色 */
+  padding: 1.5rem !important;
+  margin: 0 !important;
+  border-radius: 16px !important;
+}
+
+pre code,
+pre[class*="language-"] code,
+pre[class*="prism"] code {
+  background: transparent !important;
+}

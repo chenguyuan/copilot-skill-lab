@@ -1,0 +1,25 @@
+/* Spectacle presentation styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Segoe UI", "Noto Sans SC", sans-serif;
+  background: #0a0a1a;
+}
+
+code {
+  background: rgba(129, 140, 248, 0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: "Cascadia Code", "Consolas", monospace;
+  font-size: 0.9em;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Copilot Skills - Lab Session</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --primary: #818cf8;
+      --secondary: #a78bfa;
+      --bg-deep: #0e0a2a;
+      --bg-dark: #080618;
+      --text-light: #e2e8f0;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(18, 18, 42, 0.9);
+    }
+    
+    html, body {
+      height: 100%;
+      font-family: "Inter", "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-dark) 100%);
+      color: var(--text-light);
+      overflow: hidden;
+    }
+    
+    .deck {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      padding: 3rem 5rem;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .slide.active { display: flex; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    h1 {
+      font-size: 4rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+    
+    .subtitle {
+      font-size: 1.8rem;
+      color: var(--text-light);
+      margin-top: 1rem;
+    }
+    
+    .meta {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+    
+    .center {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(129, 140, 248, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin: 0.5rem 0;
+    }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; }
+    
+    .agenda-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .agenda-num {
+      color: var(--primary);
+      font-size: 1.3rem;
+      font-weight: 700;
+      min-width: 2rem;
+    }
+    
+    .mode-card {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .mode-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .mode-card.ask { border-color: #64748b; }
+    .mode-card.ask h3 { color: #64748b; }
+    .mode-card.chat { border-color: #94a3b8; }
+    .mode-card.chat h3 { color: #94a3b8; }
+    .mode-card.agent { border-color: var(--primary); }
+    .mode-card.agent h3 { color: var(--primary); }
+    
+    .highlight {
+      background: rgba(129, 140, 248, 0.15);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    
+    .highlight span { color: var(--primary); font-size: 1.3rem; }
+    
+    .skill-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .skill-card .icon { font-size: 2rem; }
+    .skill-card h4 { color: var(--primary); margin-bottom: 0.3rem; }
+    .skill-card p { color: var(--text-muted); font-size: 0.95rem; }
+    
+    .stage {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
+    
+    .stage-num {
+      color: var(--primary);
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    
+    .stage h3 { color: var(--primary); margin-bottom: 0.3rem; }
+    
+    .arrow { color: var(--primary); font-size: 2rem; }
+    
+    .code-block {
+      background: #1e1e2e;
+      border-radius: 8px;
+      padding: 1.5rem;
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.6;
+    }
+    
+    .code-block .comment { color: #6a9955; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .string { color: #ce9178; }
+    
+    .flow-step {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(129, 140, 248, 0.1);
+      border-radius: 8px;
+    }
+    
+    .flow-step .num {
+      color: var(--primary);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .flow-step p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    .big-icon { font-size: 5rem; margin-bottom: 1rem; }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .takeaway {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .takeaway .key {
+      color: var(--primary);
+      font-weight: 600;
+      min-width: 12rem;
+      font-size: 1.1rem;
+    }
+    
+    .takeaway .value {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      gap: 1rem;
+      z-index: 100;
+    }
+    
+    .nav button {
+      background: var(--card-bg);
+      border: 1px solid rgba(129, 140, 248, 0.3);
+      color: var(--primary);
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    
+    .nav button:hover {
+      background: rgba(129, 140, 248, 0.2);
+      border-color: var(--primary);
+    }
+    
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .slide-num {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .content-wrap {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <!-- Slide 1: Title -->
+    <div class="slide center active">
+      <h1>GitHub Copilot <span style="color: var(--primary)">Skills</span></h1>
+      <p class="subtitle">从使用到自定义</p>
+      <p class="meta">实战 Lab Session</p>
+    </div>
+
+    <!-- Slide 2: Agenda -->
+    <div class="slide">
+      <h2>Agenda</h2>
+      <div class="content-wrap">
+        <div class="card agenda-item"><span class="agenda-num">01</span> 环境验证</div>
+        <div class="card agenda-item"><span class="agenda-num">02</span> Agent Mode 简介</div>
+        <div class="card agenda-item"><span class="agenda-num">03</span> Skills：什么 & 为什么</div>
+        <div class="card agenda-item"><span class="agenda-num">04</span> Team Skills 实战</div>
+        <div class="card agenda-item"><span class="agenda-num">05</span> Demo：Troubleshooting Chain</div>
+        <div class="card agenda-item"><span class="agenda-num">06</span> 自己创建 Skill</div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Environment Check -->
+    <div class="slide">
+      <h2>环境验证</h2>
+      <div class="content-wrap">
+        <div class="card">
+          <p style="margin-bottom: 1rem;">💻 VS Code + Copilot Chat 扩展</p>
+          <p style="margin-bottom: 1rem;">🔑 GitHub 账号已绑定（EMU 或个人）</p>
+          <p style="margin-bottom: 1rem;">🤖 Agent Mode 已启用</p>
+          <p>📁 Team Skills 已 Clone + Junction</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Agent Mode -->
+    <div class="slide">
+      <h2>Agent Mode</h2>
+      <div class="content-wrap">
+        <div class="grid-3">
+          <div class="card mode-card ask">
+            <h3>Ask</h3>
+            <p>只回答问题</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">不执行操作</p>
+          </div>
+          <div class="card mode-card chat">
+            <h3>Chat</h3>
+            <p>可读写代码</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">受限操作</p>
+          </div>
+          <div class="card mode-card agent">
+            <h3>Agent</h3>
+            <p>完全自主</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">命令/文件/工具</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <span>💡 Skills 只在 Agent Mode 下生效！</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: What is Skill -->
+    <div class="slide">
+      <h2>什么是 Skill？</h2>
+      <div class="content-wrap">
+        <div class="card" style="text-align: center; margin-bottom: 2rem;">
+          <p style="font-size: 1.4rem;">一段 <span style="color: var(--primary); font-weight: 600;">Markdown 指令</span>，告诉 Copilot 如何执行特定任务</p>
+        </div>
+        <div class="grid-3">
+          <div class="card" style="text-align: center;">
+            <span style="font-size: 2rem;">📊</span>
+            <p style="margin-top: 0.5rem;">解析 Media 日志</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">→ 输出质量报告</p>
+          </div>
+          <div class="card" style="text-align: center;">
+            <span style="font-size: 2rem;">📈</span>
+            <p style="margin-top: 0.5rem;">分析 CQD 数据</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">→ 自动脱敏 + 统计</p>
+          </div>
+          <div class="card" style="text-align: center;">
+            <span style="font-size: 2rem;">✉️</span>
+            <p style="margin-top: 0.5rem;">写邮件</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">→ 生成 HTML 格式</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Skill Essence -->
+    <div class="slide center">
+      <h2 class="gradient-text" style="font-size: 3rem; margin-bottom: 1rem;">Skill = Structured Prompt</h2>
+      <p style="font-size: 1.3rem; margin-bottom: 2rem;">把你脑子里 "我平时是这样做的" 写成 Copilot 能执行的步骤</p>
+      <div class="grid-2" style="max-width: 800px;">
+        <div class="card" style="border-color: #64748b;">
+          <h4 style="color: #f87171; margin-bottom: 0.5rem;">❌ 没有 Skill</h4>
+          <p style="color: var(--text-muted);">每次都要告诉 Copilot 怎么做</p>
+        </div>
+        <div class="card" style="border-color: var(--primary);">
+          <h4 style="color: #4ade80; margin-bottom: 0.5rem;">✅ 有了 Skill</h4>
+          <p style="color: var(--text-muted);">Copilot 自动按你的 SOP 执行</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Two-Stage Injection -->
+    <div class="slide">
+      <h2>两阶段注入机制</h2>
+      <div class="content-wrap">
+        <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 2rem;">
+          <div class="card stage">
+            <span class="stage-num">01</span>
+            <div>
+              <h3>描述匹配</h3>
+              <p>读取所有 SKILL.md 的 <code style="color: var(--primary);">description</code></p>
+              <p style="color: var(--text-muted);">→ 判断哪个 Skill 最匹配</p>
+            </div>
+          </div>
+          <span class="arrow">→</span>
+          <div class="card stage">
+            <span class="stage-num">02</span>
+            <div>
+              <h3>完整注入</h3>
+              <p>读取整个 SKILL.md 内容</p>
+              <p style="color: var(--text-muted);">→ 按 Procedure 执行</p>
+            </div>
+          </div>
+        </div>
+        <div class="highlight">
+          <span>💡 所以 <span style="font-weight: 600;">description</span> 要写好，不然 Skill 匹配不上！</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: SKILL.md Core -->
+    <div class="slide">
+      <h2>SKILL.md 核心要素</h2>
+      <div class="content-wrap">
+        <div class="grid-2" style="align-items: start;">
+          <div class="code-block"><span class="comment">---</span>
+<span class="keyword">description:</span> <span class="string">解析 Teams mediastack .blog，
+             输出 CombinedMediaLogs.txt</span>
+<span class="comment">---</span>
+
+<span class="keyword"># decode-media-log</span>
+
+将 .blog 转为可读文本。
+
+<span class="keyword">## Procedure</span>
+
+1. 定位 MediaDecode.exe 路径
+2. 执行解码命令
+3. 输出到指定目录</div>
+          <div>
+            <div class="card" style="border-left: 4px solid var(--primary); margin-bottom: 1rem;">
+              <h4 style="color: var(--primary); margin-bottom: 0.3rem;">description</h4>
+              <p style="color: var(--text-muted);">触发匹配的关键</p>
+            </div>
+            <div class="card" style="border-left: 4px solid var(--secondary);">
+              <h4 style="color: var(--secondary); margin-bottom: 0.3rem;">Procedure</h4>
+              <p style="color: var(--text-muted);">具体执行步骤</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 9: Team Skills -->
+    <div class="slide">
+      <h2>Team Skills 一览</h2>
+      <div class="content-wrap">
+        <div class="grid-2">
+          <div class="card skill-card">
+            <span class="icon">🔓</span>
+            <div>
+              <h4>decode-media-log</h4>
+              <p>解码 .blog → CombinedMediaLogs.txt</p>
+            </div>
+          </div>
+          <div class="card skill-card">
+            <span class="icon">🔍</span>
+            <div>
+              <h4>media-log-analysis</h4>
+              <p>分析媒体日志，定位质量问题</p>
+            </div>
+          </div>
+          <div class="card skill-card">
+            <span class="icon">📊</span>
+            <div>
+              <h4>cqd-quality-analyzer</h4>
+              <p>CQD 数据脱敏 + 通话质量统计</p>
+            </div>
+          </div>
+          <div class="card skill-card">
+            <span class="icon">✉️</span>
+            <div>
+              <h4>email-writer</h4>
+              <p>生成 HTML 格式专业邮件</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: Clone + Junction -->
+    <div class="slide">
+      <h2>Clone + Junction 配置</h2>
+      <div class="content-wrap">
+        <div class="code-block" style="margin-bottom: 1.5rem;"><span class="comment"># 1. Clone Team Skills Repo</span>
+git clone &lt;team-repo-url&gt; C:\Users\$env:USERNAME\.copilot\Teamskillrepo
+
+<span class="comment"># 2. 创建 Junction（符号链接）</span>
+New-Item -ItemType Junction `
+  -Path <span class="string">"C:\Users\$env:USERNAME\.copilot\skills\team"</span> `
+  -Target <span class="string">"C:\Users\$env:USERNAME\.copilot\Teamskillrepo"</span></div>
+        <div class="grid-2">
+          <div class="card" style="text-align: center;">
+            <p>Team Skills 同步到 <code style="color: var(--primary);">~/.copilot/skills/team/</code></p>
+          </div>
+          <div class="card" style="text-align: center; border-color: var(--primary);">
+            <p style="color: var(--primary);">💡 Git pull 即可获取最新 Skills</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: Troubleshooting Chain -->
+    <div class="slide">
+      <h2>Troubleshooting Chain</h2>
+      <div class="content-wrap">
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+          <div class="card" style="padding: 1.5rem 2rem;">
+            <span class="gradient-text" style="font-size: 1.5rem; font-weight: 600;">decode-media-log</span>
+          </div>
+          <span class="arrow">→</span>
+          <div class="card" style="padding: 1.5rem 2rem;">
+            <span class="gradient-text" style="font-size: 1.5rem; font-weight: 600;">media-log-analysis</span>
+          </div>
+        </div>
+        <div class="card">
+          <h4 style="color: var(--primary); margin-bottom: 1rem;">工作流：</h4>
+          <div class="grid-4">
+            <div class="flow-step"><span class="num">1</span><p>用户提供 .blog 文件</p></div>
+            <div class="flow-step"><span class="num">2</span><p>decode 解码为文本</p></div>
+            <div class="flow-step"><span class="num">3</span><p>analysis 分析质量</p></div>
+            <div class="flow-step"><span class="num">4</span><p>输出结构化报告</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 12: Demo -->
+    <div class="slide center">
+      <div class="big-icon">🎬</div>
+      <h2 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 1rem;">Demo Time</h2>
+      <p style="font-size: 1.8rem; margin-bottom: 2rem;">Media Log → 质量报告</p>
+      <div class="card" style="display: inline-block; padding: 1.5rem 3rem;">
+        <p style="color: var(--text-muted); font-style: italic; font-size: 1.3rem;">"帮我分析这个 media log，找出通话质量问题"</p>
+      </div>
+    </div>
+
+    <!-- Slide 13: Create Your Own -->
+    <div class="slide">
+      <h2>创建自己的 Skill</h2>
+      <div class="content-wrap">
+        <p style="color: var(--primary); font-size: 1.3rem; margin-bottom: 1.5rem;">最简单的方式：</p>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="color: var(--primary); font-size: 1.5rem; font-weight: 700;">1</span>
+            <span style="font-size: 1.2rem;">先让 Copilot 帮你解决一个问题</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="color: var(--primary); font-size: 1.5rem; font-weight: 700;">2</span>
+            <div class="card" style="flex: 1; padding: 1rem 1.5rem;">
+              <span>解决后说：</span>
+              <span style="color: var(--primary); margin-left: 0.5rem;">"把刚才的解决步骤总结成一个 Skill"</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="color: var(--primary); font-size: 1.5rem; font-weight: 700;">3</span>
+            <span style="font-size: 1.2rem;">Copilot 自动生成 SKILL.md</span>
+          </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; color: var(--text-muted);">
+          💡 参考：<span style="color: var(--primary);">github.com/anthropics/agent-skills</span> (109k+ ⭐)
+        </p>
+      </div>
+    </div>
+
+    <!-- Slide 14: File Structure -->
+    <div class="slide">
+      <h2>文件结构</h2>
+      <div class="content-wrap">
+        <div class="grid-2" style="align-items: start;">
+          <div class="code-block">~/.copilot/skills/
+├── my-skill/
+│   ├── SKILL.md          <span class="comment"># 主入口（必须）</span>
+│   ├── references/       <span class="comment"># 参考文档</span>
+│   │   └── playbook.md
+│   ├── scripts/          <span class="comment"># 脚本</span>
+│   │   └── helper.ps1
+│   └── assets/           <span class="comment"># 模板/资源</span>
+└── team -> Teamskillrepo <span class="comment"># Junction</span></div>
+          <div class="card" style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+            <div style="padding: 1rem; background: rgba(129, 140, 248, 0.1); border-radius: 8px; text-align: center;">
+              <span style="font-size: 1.5rem;">💡</span>
+              <p style="color: var(--primary); margin-top: 0.5rem;">SKILL.md 是唯一必须的文件</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 15: Exercise -->
+    <div class="slide">
+      <h2>动手练习</h2>
+      <div class="content-wrap">
+        <div class="card" style="text-align: center; margin-bottom: 2rem; border-color: var(--primary);">
+          <h3 style="color: var(--primary); margin-bottom: 0.5rem;">任务</h3>
+          <p style="font-size: 1.3rem;">想一个你经常重复做的任务</p>
+          <p style="color: var(--text-muted); margin-top: 0.5rem;">让 Copilot 帮你完成，然后总结成 Skill</p>
+        </div>
+        <p style="color: var(--primary); margin-bottom: 1rem;">示例场景：</p>
+        <div class="grid-3">
+          <div class="card" style="text-align: center; padding: 1.5rem;">
+            <span style="font-size: 2rem;">📄</span>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">格式化某类日志/数据</p>
+          </div>
+          <div class="card" style="text-align: center; padding: 1.5rem;">
+            <span style="font-size: 2rem;">📝</span>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">生成特定格式的报告</p>
+          </div>
+          <div class="card" style="text-align: center; padding: 1.5rem;">
+            <span style="font-size: 2rem;">✅</span>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">执行固定流程的检查</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 16: Takeaways -->
+    <div class="slide">
+      <h2>Takeaways</h2>
+      <div class="content-wrap">
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <div class="card takeaway"><span class="key">Agent Mode</span><span class="value">是使用 Skills 的前提</span></div>
+          <div class="card takeaway"><span class="key">description</span><span class="value">决定 Skill 能否被触发</span></div>
+          <div class="card takeaway"><span class="key">Skills 可以串联</span><span class="value">形成工作流</span></div>
+          <div class="card takeaway"><span class="key">创建 Skill</span><span class="value">先解决问题，再让 Copilot 总结</span></div>
+          <div class="card takeaway"><span class="key">团队共享</span><span class="value">Git + Junction</span></div>
+        </div>
+        <p class="gradient-text" style="text-align: center; font-size: 2rem; margin-top: 2rem;">
+          Happy Copiloting! 🚀
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button onclick="prevSlide()">← 上一页</button>
+    <button onclick="nextSlide()">下一页 →</button>
+  </div>
+  
+  <div class="progress" id="progress"></div>
+  <div class="slide-num" id="slideNum">1 / 16</div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + totalSlides) % totalSlides;
+      slides[currentSlide].classList.add('active');
+      document.getElementById('progress').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+      document.getElementById('slideNum').textContent = (currentSlide + 1) + ' / ' + totalSlides;
+    }
+
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'Home') showSlide(0);
+      if (e.key === 'End') showSlide(totalSlides - 1);
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) nextSlide();
+        else prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>
