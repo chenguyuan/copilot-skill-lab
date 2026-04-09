@@ -258,31 +258,43 @@ function App() {
           <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">SKILL.md 核心要素</Heading>
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '2rem', alignItems: 'start' }}>
             <div style={codeBlockStyle}>
-              <DarkCodeBlock language="markdown">
+              <DarkCodeBlock language="yaml">
 {`---
-description: 解析 Teams mediastack .blog，
-             输出 CombinedMediaLogs.txt
+name: decode-media-log
+description: 'Decode Teams .blog files
+  to CombinedMediaLogs.txt. 触发词：
+  解码媒体日志、media decode'
+argument-hint: 'Path to mediastack folder'
+user-invocable: true
 ---
 
-# decode-media-log
+# Decode Teams Media Log
 
-将 .blog 转为可读文本。
+## When To Use
+- User asks to decode media logs
 
 ## Procedure
-
 1. 定位 MediaDecode.exe 路径
 2. 执行解码命令
 3. 输出到指定目录`}
               </DarkCodeBlock>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <div style={{ ...cardStyle, borderLeft: '4px solid #818cf8', padding: '1.5rem 2rem' }}>
-                <h4 style={{ color: '#818cf8', margin: '0 0 0.5rem 0', fontSize: '1.4rem' }}>description</h4>
-                <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.2rem' }}>触发匹配的关键</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div style={{ ...cardStyle, borderLeft: '4px solid #22c55e', padding: '1rem 1.5rem' }}>
+                <h4 style={{ color: '#22c55e', margin: '0 0 0.3rem 0', fontSize: '1.3rem' }}>name</h4>
+                <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.1rem' }}>= 文件夹名（唯一标识）</p>
               </div>
-              <div style={{ ...cardStyle, borderLeft: '4px solid #a78bfa', padding: '1.5rem 2rem' }}>
-                <h4 style={{ color: '#a78bfa', margin: '0 0 0.5rem 0', fontSize: '1.4rem' }}>Procedure</h4>
-                <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.2rem' }}>具体执行步骤</p>
+              <div style={{ ...cardStyle, borderLeft: '4px solid #818cf8', padding: '1rem 1.5rem' }}>
+                <h4 style={{ color: '#818cf8', margin: '0 0 0.3rem 0', fontSize: '1.3rem' }}>description</h4>
+                <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.1rem' }}>触发匹配的关键！</p>
+              </div>
+              <div style={{ ...cardStyle, borderLeft: '4px solid #f59e0b', padding: '1rem 1.5rem' }}>
+                <h4 style={{ color: '#f59e0b', margin: '0 0 0.3rem 0', fontSize: '1.3rem' }}>argument-hint</h4>
+                <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.1rem' }}>提示用户输入什么</p>
+              </div>
+              <div style={{ ...cardStyle, borderLeft: '4px solid #a78bfa', padding: '1rem 1.5rem' }}>
+                <h4 style={{ color: '#a78bfa', margin: '0 0 0.3rem 0', fontSize: '1.3rem' }}>Procedure</h4>
+                <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.1rem' }}>具体执行步骤</p>
               </div>
             </div>
           </div>
@@ -401,7 +413,7 @@ New-Item -ItemType Junction \`
               {[
                 { icon: '🎯', title: '一致性', desc: '每次相同方法论、相同格式' },
                 { icon: '🧠', title: '知识封装', desc: '阈值、模式库、检查清单' },
-                { icon: '👥', title: '团队共享', desc: 'Git 版本控制，新人即用' },
+              { icon: '👥', title: '团队共享', desc: 'Git 版本控制，统一维护' },
                 { icon: '✅', title: '质量保证', desc: '不遗漏关键步骤' },
               ].map((item, i) => (
                 <div key={i} style={{ ...cardStyle, display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
