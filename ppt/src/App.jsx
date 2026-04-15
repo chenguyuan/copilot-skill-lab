@@ -130,8 +130,6 @@ function App() {
           <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
             <span style={{ color: '#64748b', fontSize: '1.1rem' }}>📚 基础文档：</span>
             <a href="https://internal.evergreen.microsoft.com/en-us/topic/2551d022-d53d-4abc-c733-4aa959b7fb87" style={{ color: '#818cf8', fontSize: '1.1rem', marginLeft: '0.5rem' }}>Copilot Skills (Evergreen)</a>
-            <span style={{ color: '#64748b', fontSize: '1.1rem', marginLeft: '1.5rem' }}>🛠️ 会前准备：</span>
-            <a href="https://skill-lab.guyuan-guc.com/pre-lab" style={{ color: '#818cf8', fontSize: '1.1rem', marginLeft: '0.5rem' }}>Pre-Lab Setup</a>
           </div>
         </SlideContent>
       </Slide>
@@ -152,6 +150,10 @@ function App() {
                 <span style={{ color: '#e2e8f0', fontSize: '1.6rem' }}>{item.text}</span>
               </div>
             ))}
+          </div>
+          <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+            <span style={{ color: '#64748b', fontSize: '1.1rem' }}>🛠️ 会前准备：</span>
+            <a href="https://skill-lab.guyuan-guc.com/pre-lab" style={{ color: '#818cf8', fontSize: '1.1rem', marginLeft: '0.5rem' }}>Pre-Lab Setup</a>
           </div>
         </SlideContent>
       </Slide>
