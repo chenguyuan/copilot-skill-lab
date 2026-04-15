@@ -335,7 +335,7 @@ user-invocable: true
           <div style={{ ...codeBlockStyle, marginBottom: '1.5rem' }}>
             <DarkCodeBlock language="powershell">
 {`# 1. Clone Team Skills Repo
-git clone <your-team-repo-url> \\
+git clone https://dev.azure.com/GCR-AIFirst/AIFirst/_git/skills-common \\
   C:\\Users\\$env:USERNAME\\.copilot\\TeamSkillRepo
 
 # 2. 为每个 Skill 创建 Junction（按需链接）

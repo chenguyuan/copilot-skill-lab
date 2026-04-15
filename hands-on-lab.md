@@ -68,7 +68,7 @@
 
 **1. Clone 团队 repo**
 ```powershell
-git clone <团队repo地址> $env:USERPROFILE\.copilot\Teamskillrepo
+git clone https://dev.azure.com/GCR-AIFirst/AIFirst/_git/skills-common $env:USERPROFILE\.copilot\Teamskillrepo
 ```
 
 **2. 用 Junction 链接到你的 skills 文件夹**

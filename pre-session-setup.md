@@ -71,7 +71,7 @@
 
 **1. Clone 团队 repo**
 ```powershell
-git clone <团队repo地址> $env:USERPROFILE\.copilot\Teamskillrepo
+git clone https://dev.azure.com/GCR-AIFirst/AIFirst/_git/skills-common $env:USERPROFILE\.copilot\Teamskillrepo
 ```
 
 **2. 创建你的 skills 目录（如果不存在）**
