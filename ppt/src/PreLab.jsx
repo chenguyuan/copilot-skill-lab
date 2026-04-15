@@ -65,7 +65,6 @@ export default function PreLab() {
           <h2><span className="step-num">4</span>登录 GitHub</h2>
           <p>安装扩展后，VS Code 右下角会提示 <strong>Sign in to GitHub</strong>。</p>
           <p>点击登录，使用 <strong>Step 1 中选择的账号</strong>（EMU 账号或已绑定的个人账号）。</p>
-          <div className="tip">💡 登录成功后，底部状态栏应显示 Copilot 图标（无红色警告）。</div>
         </section>
 
         {/* Step 5 */}
