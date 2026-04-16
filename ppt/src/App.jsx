@@ -181,7 +181,21 @@ function App() {
         </SlideContent>
       </Slide>
 
-      {/* Slide 5: What is Skill */}
+      {/* Slide 5: Demo */}
+      <Slide backgroundColor="#0e0a2a">
+        <FlexBox height="100%" flexDirection="column" justifyContent="center" alignItems="center">
+          <div style={{ textAlign: 'center' }}>
+            <h1 style={{ fontSize: '5rem', margin: '0 0 1rem 0' }}>🎬</h1>
+            <h2 style={{ background: 'linear-gradient(135deg, #818cf8, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '3.5rem', margin: '0 0 1.5rem 0' }}>Demo Time</h2>
+            <p style={{ color: '#e2e8f0', fontSize: '1.8rem', marginBottom: '2rem' }}>Media Log → 质量报告</p>
+            <div style={{ ...cardStyle, display: 'inline-block', padding: '1.5rem 3rem' }}>
+              <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.3rem', fontStyle: 'italic' }}>"帮我分析这个 media log，找出通话质量问题"</p>
+            </div>
+          </div>
+        </FlexBox>
+      </Slide>
+
+      {/* Slide 6: What is Skill */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="80%">
           <Heading fontSize="72px" color="primary" margin="0 0 2rem 0">什么是 Skill？</Heading>
@@ -229,38 +243,7 @@ function App() {
         </SlideContent>
       </Slide>
 
-      {/* Slide 7: Two-Stage Injection */}
-      <Slide backgroundColor="#0e0a2a">
-        <SlideContent width="85%">
-          <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">两阶段注入机制</Heading>
-          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-            <div style={{ ...cardStyle, flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem' }}>
-                <span style={{ color: '#818cf8', fontSize: '2.5rem', fontWeight: 700 }}>01</span>
-                <h3 style={{ color: '#818cf8', margin: 0, fontSize: '1.6rem' }}>描述匹配</h3>
-              </div>
-              <p style={{ color: '#e2e8f0', fontSize: '1.2rem', margin: '0.5rem 0' }}>
-                读取所有 SKILL.md 的 <code style={{ color: '#818cf8' }}>description</code>
-              </p>
-              <p style={{ color: '#94a3b8', fontSize: '1.1rem', margin: 0 }}>→ 判断哪个 Skill 最匹配</p>
-            </div>
-            <span style={{ color: '#818cf8', fontSize: '2.5rem' }}>→</span>
-            <div style={{ ...cardStyle, flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem' }}>
-                <span style={{ color: '#818cf8', fontSize: '2.5rem', fontWeight: 700 }}>02</span>
-                <h3 style={{ color: '#818cf8', margin: 0, fontSize: '1.6rem' }}>完整注入</h3>
-              </div>
-              <p style={{ color: '#e2e8f0', fontSize: '1.2rem', margin: '0.5rem 0' }}>读取整个 SKILL.md 内容</p>
-              <p style={{ color: '#94a3b8', fontSize: '1.1rem', margin: 0 }}>→ 按 Procedure 执行</p>
-            </div>
-          </div>
-          <div style={{ marginTop: '1.5rem', textAlign: 'center', padding: '1.2rem', background: 'rgba(129, 140, 248, 0.1)', borderRadius: '12px' }}>
-            <span style={{ color: '#e2e8f0', fontSize: '1.3rem' }}>💡 所以 <span style={{ color: '#818cf8', fontWeight: 600 }}>description</span> 要写好，不然 Skill 匹配不上！</span>
-          </div>
-        </SlideContent>
-      </Slide>
-
-      {/* Slide 8: SKILL.md Core Elements */}
+      {/* Slide 7: SKILL.md Core Elements */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="90%">
           <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">SKILL.md 核心要素</Heading>
@@ -309,6 +292,37 @@ user-invocable: true
         </SlideContent>
       </Slide>
 
+      {/* Slide 8: Two-Stage Injection */}
+      <Slide backgroundColor="#0e0a2a">
+        <SlideContent width="85%">
+          <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">两阶段注入机制</Heading>
+          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+            <div style={{ ...cardStyle, flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem' }}>
+                <span style={{ color: '#818cf8', fontSize: '2.5rem', fontWeight: 700 }}>01</span>
+                <h3 style={{ color: '#818cf8', margin: 0, fontSize: '1.6rem' }}>描述匹配</h3>
+              </div>
+              <p style={{ color: '#e2e8f0', fontSize: '1.2rem', margin: '0.5rem 0' }}>
+                读取所有 SKILL.md 的 <code style={{ color: '#818cf8' }}>description</code>
+              </p>
+              <p style={{ color: '#94a3b8', fontSize: '1.1rem', margin: 0 }}>→ 判断哪个 Skill 最匹配</p>
+            </div>
+            <span style={{ color: '#818cf8', fontSize: '2.5rem' }}>→</span>
+            <div style={{ ...cardStyle, flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem' }}>
+                <span style={{ color: '#818cf8', fontSize: '2.5rem', fontWeight: 700 }}>02</span>
+                <h3 style={{ color: '#818cf8', margin: 0, fontSize: '1.6rem' }}>完整注入</h3>
+              </div>
+              <p style={{ color: '#e2e8f0', fontSize: '1.2rem', margin: '0.5rem 0' }}>读取整个 SKILL.md 内容</p>
+              <p style={{ color: '#94a3b8', fontSize: '1.1rem', margin: 0 }}>→ 按 Procedure 执行</p>
+            </div>
+          </div>
+          <div style={{ marginTop: '1.5rem', textAlign: 'center', padding: '1.2rem', background: 'rgba(129, 140, 248, 0.1)', borderRadius: '12px' }}>
+            <span style={{ color: '#e2e8f0', fontSize: '1.3rem' }}>💡 所以 <span style={{ color: '#818cf8', fontWeight: 600 }}>description</span> 要写好，不然 Skill 匹配不上！</span>
+          </div>
+        </SlideContent>
+      </Slide>
+
       {/* Slide 9: Team Skills */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="85%">
@@ -332,41 +346,7 @@ user-invocable: true
         </SlideContent>
       </Slide>
 
-      {/* Slide 10: Clone + Junction */}
-      <Slide backgroundColor="#0e0a2a">
-        <SlideContent width="85%">
-          <Heading fontSize="60px" color="primary" margin="0 0 1.5rem 0">Clone + Junction 配置</Heading>
-          <div style={{ ...codeBlockStyle, marginBottom: '1.5rem' }}>
-            <DarkCodeBlock language="powershell">
-{`# 1. Clone Team Skills Repo
-git clone https://dev.azure.com/GCR-AIFirst/AIFirst/_git/skills-common \\
-  C:\\Users\\$env:USERNAME\\.copilot\\TeamSkillRepo
-
-# 2. 为每个 Skill 创建 Junction（按需链接）
-New-Item -ItemType Junction \`
-  -Path "C:\\Users\\$env:USERNAME\\.copilot\\skills\\decode-media-log" \`
-  -Target "C:\\Users\\$env:USERNAME\\.copilot\\TeamSkillRepo\\decode-media-log"
-
-# 继续添加其他需要的 Skills...
-New-Item -ItemType Junction \`
-  -Path "...\\skills\\media-log-analysis" \`
-  -Target "...\\TeamSkillRepo\\media-log-analysis"`}
-            </DarkCodeBlock>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem' }}>
-            <div style={{ ...cardStyle, padding: '1.2rem 2rem', textAlign: 'center' }}>
-              <p style={{ color: '#e2e8f0', margin: 0, fontSize: '1.2rem' }}>
-                每个 Skill 单独链接到 <code style={{ color: '#818cf8' }}>~/.copilot/skills/</code>
-              </p>
-            </div>
-            <div style={{ ...cardStyle, padding: '1.2rem 2rem', textAlign: 'center', borderColor: '#818cf8' }}>
-              <p style={{ color: '#818cf8', margin: 0, fontSize: '1.2rem' }}>💡 按需选择，Git pull 更新</p>
-            </div>
-          </div>
-        </SlideContent>
-      </Slide>
-
-      {/* Slide 11: Troubleshooting Chain */}
+      {/* Slide 10: Troubleshooting Chain */}
       <Slide backgroundColor="#0e0a2a">
         <SlideContent width="85%">
           <Heading fontSize="60px" color="primary" margin="0 0 1.5rem 0">Troubleshooting Chain</Heading>
@@ -391,20 +371,6 @@ New-Item -ItemType Junction \`
             </div>
           </div>
         </SlideContent>
-      </Slide>
-
-      {/* Slide 12: Demo */}
-      <Slide backgroundColor="#0e0a2a">
-        <FlexBox height="100%" flexDirection="column" justifyContent="center" alignItems="center">
-          <div style={{ textAlign: 'center' }}>
-            <h1 style={{ fontSize: '5rem', margin: '0 0 1rem 0' }}>🎬</h1>
-            <h2 style={{ background: 'linear-gradient(135deg, #818cf8, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: '3.5rem', margin: '0 0 1.5rem 0' }}>Demo Time</h2>
-            <p style={{ color: '#e2e8f0', fontSize: '1.8rem', marginBottom: '2rem' }}>Media Log → 质量报告</p>
-            <div style={{ ...cardStyle, display: 'inline-block', padding: '1.5rem 3rem' }}>
-              <p style={{ color: '#94a3b8', margin: 0, fontSize: '1.3rem', fontStyle: 'italic' }}>"帮我分析这个 media log，找出通话质量问题"</p>
-            </div>
-          </div>
-        </FlexBox>
       </Slide>
 
       {/* Slide 13: Discussion - 动画：先问题，再答案 */}
@@ -472,37 +438,6 @@ New-Item -ItemType Junction \`
           <p style={{ textAlign: 'center', marginTop: '1.5rem', color: '#64748b', fontSize: '1.2rem' }}>
             参考：<span style={{ color: '#818cf8' }}>github.com/anthropics/skills</span> (113k+ ⭐)
           </p>
-        </SlideContent>
-      </Slide>
-
-      {/* Slide 15: File Structure */}
-      <Slide backgroundColor="#0e0a2a">
-        <SlideContent width="85%">
-          <Heading fontSize="64px" color="primary" margin="0 0 1.5rem 0">文件结构</Heading>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 0.7fr', gap: '2rem' }}>
-            <div style={codeBlockStyle}>
-              <DarkCodeBlock language="text">
-{`~/.copilot/skills/
-├── my-skill/               # 个人 Skill
-│   ├── SKILL.md
-│   └── scripts/
-├── decode-media-log -> ...  # Junction
-├── media-log-analysis -> ... # Junction
-└── troubleshooting-search -> ... # Junction
-
-~/.copilot/TeamSkillRepo/     # Team Repo
-├── decode-media-log/
-├── media-log-analysis/
-└── ...`}
-              </DarkCodeBlock>
-            </div>
-            <div style={{ ...cardStyle, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ padding: '1.5rem', background: 'rgba(129, 140, 248, 0.1)', borderRadius: '8px', textAlign: 'center' }}>
-                <span style={{ fontSize: '2rem' }}>💡</span>
-                <p style={{ color: '#818cf8', margin: '0.5rem 0 0 0', fontSize: '1.3rem' }}>SKILL.md 是唯一必须的文件</p>
-              </div>
-            </div>
-          </div>
         </SlideContent>
       </Slide>
 
