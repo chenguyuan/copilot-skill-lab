@@ -92,7 +92,15 @@ function App() {
   return (
     <Deck 
       theme={theme} 
-      template={() => <MicrosoftBadge />}
+      template={({ slideNumber, numberOfSlides }) => (
+        <>
+          <MicrosoftBadge />
+          <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <span style={{ color: '#64748b', fontSize: '0.9rem' }}>← → 翻页</span>
+            <span style={{ color: '#64748b', fontSize: '0.9rem' }}>{slideNumber} / {numberOfSlides}</span>
+          </div>
+        </>
+      )}
       backgroundColor="#0e0a2a"
     >
       {/* Slide 1: Title */}
