@@ -1,6 +1,12 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/assets/*"]
-  }
+    "exclude": ["/assets/*", "/platform-intro/*"]
+  },
+  "routes": [
+    {
+      "route": "/platform-intro",
+      "rewrite": "/platform-intro/index.html"
+    }
+  ]
 }
